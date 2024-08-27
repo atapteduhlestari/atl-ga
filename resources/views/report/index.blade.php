@@ -33,17 +33,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
+                {{-- <div class="col-md-4 mb-3">
                     <div class="card bg-light text-light ">
                         <div class="card-header"><i class="fas fa-file-signature"></i> Loan</div>
                         <div class="card-body">
                             <a class="btn btn-sm btn-info" href="/report-loan-detail">Detail</a>
-                            {{-- @can('superadmin')
-                                <a class="btn btn-sm btn-primary" href="/report-renewal-summary">Summary</a>
-                            @endcan --}}
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
