@@ -45,7 +45,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>SBU</th>
+                                <th>Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
