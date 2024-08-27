@@ -1,7 +1,5 @@
 #!/usr/bin/env php
 <?php
-// contoh tes komentar
-
 define('LARAVEL_START', microtime(true));
 
 /*
