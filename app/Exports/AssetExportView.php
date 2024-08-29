@@ -48,7 +48,8 @@ class AssetExportView implements
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $lastColumn = $event->sheet->getHighestColumn();
-                $totalData = count($this->data['assets']);
+                $column = 8;
+                $totalData = count($this->data['assets']) + $column;
 
                 $styleArray = [
                     'alignment' => [
@@ -63,7 +64,7 @@ class AssetExportView implements
                 ];
 
                 $sheet = $event->sheet;
-                $rowDataCellRange = 'A8:' . $lastColumn . $totalData + 8;
+                $rowDataCellRange = 'A8:' . $lastColumn . $totalData;
 
                 $sheet->getStyle('A8:J8')->getFill()
                     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)

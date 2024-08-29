@@ -12,7 +12,8 @@ use Maatwebsite\Excel\Concerns\WithProperties;
 class LoanExportDetailView implements
     FromView,
     WithProperties,
-    WithEvents
+    WithEvents,
+    ShouldAutoSize
 {
 
     protected $data;

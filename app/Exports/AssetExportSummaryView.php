@@ -50,8 +50,8 @@ class AssetExportSummaryView implements
             AfterSheet::class => function (AfterSheet $event) {
 
                 $lastColumn = $event->sheet->getHighestColumn();
-                $totalData = count($this->data['assets']);
-                $columnData = 10;
+                $column = 10;
+                $totalData = count($this->data['assets']) + $column;
 
                 $styleArray = [
                     'borders' => [
@@ -62,7 +62,7 @@ class AssetExportSummaryView implements
                     ],
                 ];
 
-                $rowDataCellRange = 'A8:' . $lastColumn . $totalData + $columnData;
+                $rowDataCellRange = 'A8:' . $lastColumn . $totalData;
                 $sheet = $event->sheet;
 
                 $sheet->getStyle('A8:E9')->getFill()

@@ -50,7 +50,8 @@ class MaintenanceExportDetailView implements
 
             AfterSheet::class => function (AfterSheet $event) {
                 $lastColumn = $event->sheet->getHighestColumn();
-                $totalData = count($this->data['transactions']);
+                $column = 8;
+                $totalData = count($this->data['transactions']) + $column;
 
                 $styleArray = [
                     'alignment' => [
@@ -65,7 +66,7 @@ class MaintenanceExportDetailView implements
                 ];
 
                 $sheet = $event->sheet;
-                $rowDataCellRange = 'A8:' . $lastColumn . $totalData + 8;
+                $rowDataCellRange = 'A8:' . $lastColumn . $totalData;
 
                 $sheet->getStyle('A8:L8')->getFill()
                     ->setFillType(Fill::FILL_SOLID)
