@@ -114,6 +114,8 @@
                                 <th>Description</th>
                                 <th>Due Date</th>
                                 <th>Cost</th>
+                                <th>Status</th>
+                                <th>Cycle</th>
                                 <th>File</th>
                                 <th class="text-center">Actions</th>
                             </tr>
@@ -130,6 +132,12 @@
                                     <td>{!! $trn->trn_desc !!}</td>
                                     <td class="block">{{ createDate($trn->trn_date)->format('d F Y') }}</td>
                                     <td class="block">{{ rupiah($trn->trn_value) }}</td>
+                                    <td class=" {{ $trn->trn_status ? 'text-success' : 'text-danger' }} block">
+                                        {{ $trn->trn_status ? 'Closed' : 'Open' }}
+                                    </td>
+                                    <td class=" {{ $trn->trn_type ? 'text-info' : 'text-warning' }} block">
+                                        {{ $trn->trn_type ? 'Routine' : 'Accidentally' }}
+                                    </td>
                                     <td>
                                         @if ($trn->file)
                                             <a title="download file" href="/trn-renewal/download/{{ $trn->id }}"
@@ -310,10 +318,10 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="trn_type">Type</label>
+                                <label for="trn_type">Cycle</label>
                                 <select class="form-control @error('trn_type') is-invalid @enderror" name="trn_type"
                                     id="trn_type">
-                                    <option value="">Select Type</option>
+                                    <option value="">Select Cycle</option>
                                     <option value="1">
                                         <i class="fas fa-check"></i> Routine
                                     </option>

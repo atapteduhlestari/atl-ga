@@ -54,9 +54,6 @@ class MaintenanceExportDetailView implements
                 $totalData = count($this->data['transactions']) + $column;
 
                 $styleArray = [
-                    'alignment' => [
-                        'horizontal' => Alignment::HORIZONTAL_LEFT,
-                    ],
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

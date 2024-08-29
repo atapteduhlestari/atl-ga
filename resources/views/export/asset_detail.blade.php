@@ -75,11 +75,8 @@
                     </tr>
                     <tr>
                         <th>Condition</th>
-                        @php
-                            $foo = 1;
-                        @endphp
                         <td>
-                            {{ $asset->condition == 1 ? 'Baik' : 'Rusak' }}
+                            {{ textCondition($asset->condition) }}
                         </td>
                     </tr>
                     <tr>
@@ -116,8 +113,8 @@
 
             <div class="col">
                 <div class="ml-3">
-                    <img class="mt-5 img-fluid"
-                        src="{{ $asset->image ? $asset->takeImage : asset('/assets/img/empty-img.jpeg') }}">
+                    <img class=" mt-3" height="300px" width="auto"
+                        src="{{ $asset->image ? route('image.displayImage', class_basename($asset->image)) : asset('/assets/img/empty-img.jpeg') }}">
                     <br> <small><em>Asset Image</em></small>
                 </div>
             </div>
@@ -136,6 +133,7 @@
                         <th>Cost</th>
                         <th>Applicant</th>
                         <th>Approval</th>
+                        <th>Cycle</th>
                         <th>Status</th>
                     </tr>
                     @foreach ($asset->trnMaintenance->whereNotNull('trn_value')->sortBy('trn_start_date') as $trn)
@@ -149,6 +147,7 @@
                                 {{ rupiah($trn->trn_value) }}</td>
                             <td>{{ $trn->pemohon }}</td>
                             <td>{{ $trn->penyetuju }}</td>
+                            <td>{{ $trn->trn_type ? 'Routine' : 'Accidentally' }}</td>
                             <td>{{ $trn->trn_status ? 'Closed' : 'Open' }}</td>
                         </tr>
                     @endforeach
@@ -176,6 +175,7 @@
                         <th>Cost</th>
                         <th>Applicant</th>
                         <th>Approval</th>
+                        <th>Cycle</th>
                         <th>Status</th>
                     </tr>
                     @foreach ($asset->children as $doc)
@@ -189,12 +189,12 @@
                                 <td class="no-wrap text-right">{{ rupiah($trn->trn_value) }}</td>
                                 <td>{{ $trn->pemohon }}</td>
                                 <td>{{ $trn->penyetuju }}</td>
+                                <td>{{ $trn->trn_type ? 'Routine' : 'Accidentally' }}</td>
                                 <td>{{ $trn->trn_status ? 'Closed' : 'Open' }}</td>
                             </tr>
                         @endforeach
                     @endforeach
                     <tr>
-
                         <td class="text-right" colspan="5">
                             <b>Total</b>
                         </td>

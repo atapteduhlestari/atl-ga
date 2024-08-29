@@ -112,7 +112,7 @@
                         <label for="trn_type">Type</label>
                         <select class="form-control @error('trn_type') is-invalid @enderror" name="trn_type" id="trn_type">
                             <option value="1" {{ $trnRenewal->trn_type ? 'selected' : '' }}>
-                                <i class="fas fa-check"></i> Routine
+                                <i class="fas fa-check"></i> Cycle
                             </option>
                             <option value="0" {{ !$trnRenewal->trn_type ? 'selected' : '' }}>
                                 <i class="fas fa-exclamation"></i> Accidentally

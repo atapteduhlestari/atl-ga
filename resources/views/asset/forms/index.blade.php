@@ -7,7 +7,7 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <h1 class="h3 mb-3 text-gray-800">Form ISO</h1>
+        <h1 class="h3 mb-3 text-gray-800">Form Template</h1>
         <div class="my-4">
             <form action="/form" method="POST" enctype="multipart/form-data">
                 @csrf

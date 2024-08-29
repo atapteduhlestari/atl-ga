@@ -52,9 +52,6 @@ class AssetExportView implements
                 $totalData = count($this->data['assets']) + $column;
 
                 $styleArray = [
-                    'alignment' => [
-                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-                    ],
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

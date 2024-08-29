@@ -86,7 +86,7 @@
                                 <option value=""></option>
                                 @foreach ($SBUs as $sbu)
                                     <option value="{{ $sbu->id }}"
-                                        {{ old('sdb_id', $child->sbu_id) == $sbu->id ? 'selected' : '' }}>
+                                        {{ old('sbu_id', $child->sbu_id) == $sbu->id ? 'selected' : '' }}>
                                         {{ $sbu->sbu_name }}</option>
                                 @endforeach
                             </select>

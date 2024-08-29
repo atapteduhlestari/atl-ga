@@ -69,7 +69,7 @@
                         <td>{!! $trnMaintenance->trn_desc !!}</td>
                     </tr>
                     <tr>
-                        <th>Type</th>
+                        <th>Cycle</th>
                         <td class="{{ $trnMaintenance->trn_type ? 'text-info' : 'text-warning' }}">
                             {{ $trnMaintenance->trn_type ? 'Routine' : 'Accidentally' }}
                         </td>

@@ -340,9 +340,9 @@ class AssetController extends Controller
         $data['request'] = request()->all();
 
         if (isSuperadmin())
-            $data['assets'] = Asset::filter($data['request'])->with(['sbu' => fn ($q) => $q->select('id', 'sbu_name')])->get()->groupBy('sbu.sbu_name');
+            $data['assets'] = Asset::filter($data['request'])->with(['sbu' => fn($q) => $q->select('id', 'sbu_name')])->get()->groupBy('sbu.sbu_name');
         else
-            $data['assets'] = Asset::filter($data['request'])->with(['sbu' => fn ($q) => $q->select('id', 'sbu_name')])->where('sbu_id', userSBU())->get()->groupBy('sbu.sbu_name');
+            $data['assets'] = Asset::filter($data['request'])->with(['sbu' => fn($q) => $q->select('id', 'sbu_name')])->where('sbu_id', userSBU())->get()->groupBy('sbu.sbu_name');
 
         $time = now()->format('dmY') . '-' . uniqid();
         $name = "ATL-GAN-ASSET-SUMMARY-{$time}.xlsx";

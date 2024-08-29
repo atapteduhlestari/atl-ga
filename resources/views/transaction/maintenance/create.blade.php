@@ -120,9 +120,9 @@
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="trn_type">Type</label>
+                        <label for="trn_type">Cycle</label>
                         <select class="form-control @error('trn_type') is-invalid @enderror" name="trn_type" id="trn_type">
-                            <option value="">Select Type</option>
+                            <option value="">Select Cycle</option>
                             <option value="1">
                                 <i class="fas fa-check"></i> Routine
                             </option>

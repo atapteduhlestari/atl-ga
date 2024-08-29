@@ -97,6 +97,7 @@
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
             <td style="text-align: right;">
                 <b>Total Cost</b>
             </td>

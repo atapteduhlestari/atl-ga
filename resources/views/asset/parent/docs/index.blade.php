@@ -53,7 +53,7 @@
                                 <form action="/trn-maintenance/create">
                                     <input type="hidden" name="id" value="{{ $asset->id }}" readonly>
                                     <button type="submit" class="btn btn-outline-dark btn-sm btn-block">
-                                        <i class="fas fa-tools"></i> Maintenance
+                                        <i class="fas fa-tools"></i> New Maintenance
                                     </button>
                                 </form>
                             </div>
@@ -160,18 +160,30 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2 mt-5">
-                        <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
-                            data-target="#collapseDocuments" aria-expanded="false" aria-controls="collapseDocuments"
+                    <div class="col-md-4 mt-5">
+                        <button class="btn btn-primary btn-sm btn-block border-0" type="button" data-toggle="collapse"
+                            data-target="#collapseDocument" aria-expanded="false" aria-controls="collapseDocument"
                             id="collapseButton">
-                            <span>Documents</span> <i id="toggler" class="fas fa-angle-down"></i>
+                            <span>Documents</span> <i id="togglerDocument" class="fas fa-angle-right"></i>
                         </button>
                     </div>
-
+                    <div class="col-md-4 mt-5">
+                        <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
+                            data-target="#collapseMaintenance" aria-expanded="false" aria-controls="collapseMaintenance"
+                            id="collapseButton">
+                            <span>History Maintenance</span> <i id="togglerMaintenance" class="fas fa-angle-right"></i>
+                        </button>
+                    </div>
+                    <div class="col-md-4 mt-5">
+                        <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
+                            data-target="#collapseRenewal" aria-expanded="false" aria-controls="collapseRenewal"
+                            id="collapseButton">
+                            <span>History Renewal</span> <i id="togglerRenewal" class="fas fa-angle-right"></i>
+                        </button>
+                    </div>
                 </div>
 
-
-                <div class="collapse show pb-3" id="collapseDocuments">
+                <div class="collapse pb-3" id="collapseDocument">
                     <div class="">
                         <div class="d-flex align-items-end mb-4">
                             <div class="flex-grow-1">
@@ -210,7 +222,8 @@
                                             <td>
                                                 @if ($child->file)
                                                     <a title="download file"
-                                                        href="/asset-child/download/{{ $child->id }}" class="text-dark">
+                                                        href="/asset-child/download/{{ $child->id }}"
+                                                        class="text-dark">
                                                         <i class="fas fa-download"></i>
                                                     </a>
                                                 @else
@@ -223,7 +236,7 @@
                                                         <input type="hidden" name="id" value="{{ $child->id }}"
                                                             readonly>
                                                         <button type="submit" class="btn btn-outline-dark btn-sm">
-                                                            <i class="fas fa-file-signature"></i> Renewal
+                                                            <i class="fas fa-file-signature"></i>New Renewal
                                                         </button>
                                                     </form>
                                                     <div>
@@ -248,6 +261,112 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapse pb-3" id="collapseMaintenance">
+                    <div class="my-3">
+                        <div class="table-responsive">
+                            <table class="table table-borderless" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Code Acc</th>
+                                        <th>Description</th>
+                                        <th>Start Date</th>
+                                        <th>Due Date</th>
+                                        <th>Cost</th>
+                                        <th>Applicant</th>
+                                        <th>Approval</th>
+                                        <th>Cycle</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($asset->trnMaintenance->whereNotNull('trn_value')->sortBy('trn_start_date') as $maintenance)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $maintenance->trn_no }}</td>
+                                            <td>{{ strip_tags($maintenance->trn_desc) }}</td>
+                                            <td>{{ createDate($maintenance->trn_start_date)->format('d/m/Y') }}</td>
+                                            <td>{{ createDate($maintenance->trn_date)->format('d/m/Y') }}</td>
+                                            <td class="no-wrap text-right">
+                                                {{ rupiah($maintenance->trn_value) }}</td>
+                                            <td>{{ $maintenance->pemohon }}</td>
+                                            <td>{{ $maintenance->penyetuju }}</td>
+                                            <td class="{{ $maintenance->trn_type ? 'text-info' : 'text-warning' }}">
+                                                {{ $maintenance->trn_type ? 'Routine' : 'Accidentally' }}
+                                            </td>
+                                            <td class="{{ $maintenance->trn_status ? 'text-success' : 'text-danger' }}">
+                                                {{ $maintenance->trn_status ? 'Closed' : 'Open' }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td class="text-right" colspan="5">
+                                            <b>Total</b>
+                                        </td>
+                                        <td class="no-wrap text-right">
+                                            <b>{{ rupiah($asset->trnMaintenance->sum('trn_value')) }}</b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapse pb-3" id="collapseRenewal">
+                    <div class="my-3">
+                        <div class="table-responsive">
+                            <table class="table table-borderless" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Code Acc</th>
+                                        <th>Description</th>
+                                        <th>Start Date</th>
+                                        <th>Due Date</th>
+                                        <th>Cost</th>
+                                        <th>Applicant</th>
+                                        <th>Approval</th>
+                                        <th>Cycle</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($asset->children as $doc)
+                                        @foreach ($doc->trnRenewal->whereNotNull('trn_value') as $renewal)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $renewal->trn_no }}</td>
+                                                <td>{{ strip_tags($renewal->trn_desc) }}</td>
+                                                <td>{{ createDate($renewal->trn_start_date)->format('d/m/Y') }}</td>
+                                                <td>{{ createDate($renewal->trn_date)->format('d/m/Y') }}</td>
+                                                <td class="no-wrap text-right">{{ rupiah($renewal->trn_value) }}</td>
+                                                <td>{{ $renewal->pemohon }}</td>
+                                                <td>{{ $renewal->penyetuju }}</td>
+                                                <td class="{{ $renewal->trn_type ? 'text-info' : 'text-warning' }}">
+                                                    {{ $renewal->trn_type ? 'Routine' : 'Accidentally' }}
+
+                                                </td>
+                                                <td class="{{ $renewal->trn_status ? 'text-success' : 'text-danger' }}">
+                                                    {{ $renewal->trn_status ? 'Closed' : 'Open' }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                    <tr>
+                                        <td class="text-right" colspan="5">
+                                            <b>Total</b>
+                                        </td>
+                                        <td class="no-wrap text-right">
+                                            <b>{{ rupiah($asset->sumRenewal) }}</b>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -390,8 +509,7 @@
         let btnSubmit = $('#btnSubmit'),
             form = $('#formAdd'),
             formDelete = $('#deleteForm'),
-            formDeleteDoc = $('#deleteDocForm'),
-            toggler = $('#toggler');
+            formDeleteDoc = $('#deleteDocForm');
 
         btnSubmit.click(function() {
             $(this).prop('disabled', true);
@@ -403,17 +521,43 @@
             sortField: "text",
         });
 
-        let collapseBtn = $('#collapseButton');
 
-        $('#collapseDocuments').on('shown.bs.collapse', function() {
-            toggler.addClass('fa-angle-down')
-            toggler.removeClass('fa-angle-right')
+        $('#collapseDocument').on('shown.bs.collapse', function() {
+            $('#collapseMaintenance').collapse('hide');
+            $('#collapseRenewal').collapse('hide');
+            $('#togglerDocument').addClass('fa-angle-down')
+            $('#togglerDocument').removeClass('fa-angle-right')
         });
 
-        $('#collapseDocuments').on('hidden.bs.collapse', function() {
-            toggler.addClass('fa-angle-right')
-            toggler.removeClass('fa-angle-down')
+        $('#collapseDocument').on('hidden.bs.collapse', function() {
+            $('#togglerDocument').addClass('fa-angle-right')
+            $('#togglerDocument').removeClass('fa-angle-down')
         });
+
+        $('#collapseMaintenance').on('shown.bs.collapse', function() {
+            $('#collapseDocument').collapse('hide');
+            $('#collapseRenewal').collapse('hide');
+            $('#togglerMaintenance').addClass('fa-angle-down')
+            $('#togglerMaintenance').removeClass('fa-angle-right')
+        });
+
+        $('#collapseMaintenance').on('hidden.bs.collapse', function() {
+            $('#togglerMaintenance').addClass('fa-angle-right')
+            $('#togglerMaintenance').removeClass('fa-angle-down')
+        });
+
+        $('#collapseRenewal').on('shown.bs.collapse', function() {
+            $('#collapseDocument').collapse('hide');
+            $('#collapseMaintenance').collapse('hide');
+            $('#togglerRenewal').addClass('fa-angle-down')
+            $('#togglerRenewal').removeClass('fa-angle-right')
+        });
+
+        $('#collapseRenewal').on('hidden.bs.collapse', function() {
+            $('#togglerRenewal').addClass('fa-angle-right')
+            $('#togglerRenewal').removeClass('fa-angle-down')
+        });
+
 
         $(document).on('click', '#deleteButton', function(e) {
             e.preventDefault();

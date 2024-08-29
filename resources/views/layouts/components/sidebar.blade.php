@@ -107,7 +107,7 @@
             <li class="nav-item  {{ request()->is('form*') ? 'active' : '' }}">
                 <a class="nav-link" href="/form">
                     <i class="fas fa-fw fa-folder-open"></i>
-                    <span>Forms</span>
+                    <span>Form Template</span>
                 </a>
             </li>
 

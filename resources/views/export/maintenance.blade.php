@@ -85,7 +85,7 @@
                     <td>{{ strip_tags($trn->trn_desc) }}</td>
                     <td>{{ createDate($trn->trn_start_date)->format('d/m/Y') }}</td>
                     <td>{{ createDate($trn->trn_date)->format('d/m/Y') }}</td>
-                    <td style="text-align: right">{{ $trn->trn_value }}</td>
+                    <td style="text-align: right">{{ rupiah($trn->trn_value) }}</td>
                     <td>{{ $trn->pemohon }}</td>
                     <td>{{ $trn->penyetuju }}</td>
                     <td>{{ $trn->trn_status ? 'Closed' : 'Open' }}</td>
@@ -106,7 +106,7 @@
                     <b>{{ rupiah($data['total_cost_plan']) }}</b>
                 </td> --}}
                 <td style="text-align: right">
-                    <b>{{ $data['total_cost'] }}</b>
+                    <b>{{ rupiah($data['total_cost']) }}</b>
                 </td>
             </tr>
         </tbody>

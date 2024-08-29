@@ -91,7 +91,7 @@
                     <br>
                     Total : {{ $trn->count() }}
                 </td>
-                <td>
+                <td style="text-align: right;">
                     <ol>
                         @foreach ($type as $k3 => $val3)
                             @php
@@ -108,7 +108,9 @@
         <tr>
             <td colspan="2" style="text-align: right;"><b>Total</b></td>
             <td><b>QTY: {{ $data['total_qty'] }}</b></td>
-            <td><b>Cost: {{ rupiah($data['total_cost']) }}</b></td>
+            <td style="text-align: right;">
+                <b>Cost: {{ rupiah($data['total_cost']) }}</b>
+            </td>
         </tr>
     </table>
     <table id="tableTTD">
