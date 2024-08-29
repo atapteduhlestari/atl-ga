@@ -216,7 +216,7 @@ class AssetController extends Controller
             $data['image'] = $asset->image;
         }
         $asset->update($data);
-        return redirect()->back()->with('success', 'Success!');
+        return redirect('/asset-parent/docs/' . $asset->id)->with('success', 'Success!');
     }
 
     public function destroy(Asset $asset)

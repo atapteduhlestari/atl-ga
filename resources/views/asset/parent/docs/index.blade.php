@@ -167,20 +167,25 @@
                             <span>Documents</span> <i id="togglerDocument" class="fas fa-angle-right"></i>
                         </button>
                     </div>
-                    <div class="col-md-4 mt-5">
-                        <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
-                            data-target="#collapseMaintenance" aria-expanded="false" aria-controls="collapseMaintenance"
-                            id="collapseButton">
-                            <span>History Maintenance</span> <i id="togglerMaintenance" class="fas fa-angle-right"></i>
-                        </button>
-                    </div>
-                    <div class="col-md-4 mt-5">
-                        <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
-                            data-target="#collapseRenewal" aria-expanded="false" aria-controls="collapseRenewal"
-                            id="collapseButton">
-                            <span>History Renewal</span> <i id="togglerRenewal" class="fas fa-angle-right"></i>
-                        </button>
-                    </div>
+                    @if (count($asset->trnMaintenance) > 0)
+                        <div class="col-md-4 mt-5">
+                            <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
+                                data-target="#collapseMaintenance" aria-expanded="false" aria-controls="collapseMaintenance"
+                                id="collapseButton">
+                                <span>History Maintenance</span> <i id="togglerMaintenance" class="fas fa-angle-right"></i>
+                            </button>
+                        </div>
+                    @endif
+                    @if (count($asset->children) > 0)
+                        <div class="col-md-4 mt-5">
+                            <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
+                                data-target="#collapseRenewal" aria-expanded="false" aria-controls="collapseRenewal"
+                                id="collapseButton">
+                                <span>History Renewal</span> <i id="togglerRenewal" class="fas fa-angle-right"></i>
+                            </button>
+                        </div>
+                    @endif
+
                 </div>
 
                 <div class="collapse pb-3" id="collapseDocument">
@@ -338,7 +343,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($asset->children as $doc)
+                                    @forelse ($asset->children as $doc)
                                         @foreach ($doc->trnRenewal->whereNotNull('trn_value') as $renewal)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
