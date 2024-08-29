@@ -6,6 +6,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithProperties;
 
@@ -46,22 +47,31 @@ class RenewalExportSummaryView implements
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
+                $lastColumn = $event->sheet->getHighestColumn();
+                $totalData = count($this->data['transactions']);
+                $columnData = 9;
+
                 $styleArray = [
                     'alignment' => [
-                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP,
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '#000000'],
+                        ],
                     ],
                 ];
-
+                $rowDataCellRange = 'A8:' . $lastColumn . $totalData + $columnData;
                 $sheet = $event->sheet;
-                $cellRange = 'A8:D1000';
-                // $event->sheet->getDelegate()->getColumnDimension('A')->setAutoSize(true);
-                // $sheet->getStyle('A8:D8')->getBorders()->getAllBorders()
-                //     ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+
                 $sheet->getStyle('A8:D8')->getFill()
                     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                     ->getStartColor()->setARGB('A9D08E');
-                $sheet->getDelegate()->getStyle('A8:D8')->getFont()->setBold(true);
-                $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+                $sheet->getStyle('A8:D8')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A8:D8')->getFont()->setBold(true);
+
+                $sheet->getDelegate()->getStyle($rowDataCellRange)->applyFromArray($styleArray);
             },
         ];
     }

@@ -130,7 +130,7 @@ class TrnMaintenanceController extends Controller
         }
 
         $trnMaintenance->update($data);
-        return redirect()->back()->with('success', 'Successfully deleted!');
+        return redirect("/trn-maintenance/" . $trnMaintenance->id)->with('success', 'Successfully updated!');
     }
 
     public function destroy(TrnMaintenance $trnMaintenance)

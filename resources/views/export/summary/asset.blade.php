@@ -41,23 +41,21 @@
             <td colspan="2" style="font-size:12;">
                 <strong>Laporan Summary Asset</strong>
             </td>
-            <td colspan="2"></td>
         </tr>
         <tr>
             <td colspan="2" style="font-size:12;">
                 <strong>Periode : {{ $data['periode'] }}</strong>
             </td>
-            <td colspan="2"></td>
         </tr>
         <tr>
-            <td colspan="7">&nbsp; </td>
+            <td></td>
         </tr>
         <tr>
-            <td colspan="7">Filter = Total Cost: {{ rupiah($data['total_cost']) }} | Asset qty:
+            <td colspan="5">Filter = Total Cost: {{ rupiah($data['total_cost']) }} | Asset qty:
                 {{ $data['total_data'] }} </td>
         </tr>
         <tr>
-            <td colspan="7">&nbsp;</td>
+            <td></td>
         </tr>
         <tr>
             <th rowspan="2">SBU</th>
@@ -90,12 +88,20 @@
 
         <tr>
             <th>
-                Total
+                <b>Total</b>
             </th>
-            <th style="text-align: center">{{ $data['total_baik'] }}</th>
-            <th style="text-align: right">{{ rupiah($data['total_cost_baik']) }}</th>
-            <th style="text-align: center">{{ $data['total_rusak'] }}</th>
-            <th style="text-align: right">{{ rupiah($data['total_cost_rusak']) }}</th>
+            <th style="text-align: center">
+                <b>{{ $data['total_baik'] }}</b>
+            </th>
+            <th style="text-align: right">
+                <b>{{ rupiah($data['total_cost_baik']) }}</b>
+            </th>
+            <th style="text-align: center">
+                <b>{{ $data['total_rusak'] }}</b>
+            </th>
+            <th style="text-align: right">
+                <b>{{ rupiah($data['total_cost_rusak']) }} </b>
+            </th>
         </tr>
         {{-- <tr>
             <td>Asset qty: {{ $data['total_data'] }}</td>

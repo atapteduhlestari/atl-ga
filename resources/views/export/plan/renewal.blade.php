@@ -40,27 +40,23 @@
                 <td colspan="2" style="font-size:12;">
                     <strong>Laporan Plan Renewal</strong>
                 </td>
-
             </tr>
             <tr>
                 <td colspan="2" style="font-size:12;">
-                    <strong>Periode : {{ $transactions['periode'] }}</strong>
+                    <strong>Periode : {{ $data['periode'] }}</strong>
                 </td>
             </tr>
             <tr>
-                <td colspan="9">&nbsp; </td>
+                <td></td>
             </tr>
             <tr>
-                <td colspan="9">Filter = SBU : {{ $transactions['sbu'] }} | Total Cost Plan
-                    :{{ rupiah($transactions['total_cost_plan']) }} | Total
-                    Data : {{ $transactions['total_data'] }}</td>
+                <td colspan="9">Filter = SBU : {{ $data['sbu'] }} | Total Cost Plan
+                    :{{ rupiah($data['total_cost_plan']) }} | Total
+                    Data : {{ $data['total_data'] }}</td>
             </tr>
             <tr>
-                <td colspan="9">&nbsp;</td>
+                <td></td>
             </tr>
-            {{-- <tr>
-                <td colspan="13">&nbsp;</td>
-            </tr> --}}
             <tr>
                 <th>No</th>
                 <th>Code</th>
@@ -74,7 +70,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($transactions['transactions'] as $trn)
+            @foreach ($data['transactions'] as $trn)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $trn->trn_no }}</td>
@@ -102,10 +98,10 @@
                     <b>Total</b>
                 </td>
                 {{-- <td>
-                    <b>{{ rupiah($transactions['total_cost_plan_plan']) }}</b>
+                    <b>{{ rupiah($data['total_cost_plan_plan']) }}</b>
                 </td> --}}
                 <td style="text-align: right">
-                    <b>{{ rupiah($transactions['total_cost_plan']) }}</b>
+                    <b>{{ rupiah($data['total_cost_plan']) }}</b>
                 </td>
             </tr>
         </tbody>

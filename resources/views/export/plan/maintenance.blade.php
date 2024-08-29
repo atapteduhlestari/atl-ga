@@ -48,7 +48,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="9">&nbsp; </td>
+                <td></td>
             </tr>
             <tr>
                 <td colspan="9">Filter = SBU : {{ $transactions['sbu'] }} | Total Cost Plan
@@ -56,7 +56,7 @@
                     Data : {{ $transactions['total_data'] }}</td>
             </tr>
             <tr>
-                <td colspan="9">&nbsp;</td>
+                <td></td>
             </tr>
             {{-- <tr>
                 <td colspan="13">&nbsp;</td>

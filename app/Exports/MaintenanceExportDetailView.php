@@ -14,7 +14,8 @@ use Maatwebsite\Excel\Concerns\WithProperties;
 class MaintenanceExportDetailView implements
     FromView,
     WithProperties,
-    WithEvents
+    WithEvents,
+    ShouldAutoSize
 {
 
     protected $data;
@@ -26,8 +27,8 @@ class MaintenanceExportDetailView implements
 
     public function view(): View
     {
-        $transactions = $this->data;
-        return view('export.maintenance', compact('transactions'));
+        $data = $this->data;
+        return view('export.maintenance', compact('data'));
     }
 
     public function properties(): array
@@ -46,20 +47,31 @@ class MaintenanceExportDetailView implements
     public function registerEvents(): array
     {
         return [
+
             AfterSheet::class => function (AfterSheet $event) {
+                $lastColumn = $event->sheet->getHighestColumn();
+                $totalData = count($this->data['transactions']);
+
                 $styleArray = [
                     'alignment' => [
                         'horizontal' => Alignment::HORIZONTAL_LEFT,
                     ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '#000000'],
+                        ],
+                    ],
                 ];
-                $cellRange = 'A1:B3';
+
                 $sheet = $event->sheet;
+                $rowDataCellRange = 'A8:' . $lastColumn . $totalData + 8;
 
                 $sheet->getStyle('A8:L8')->getFill()
                     ->setFillType(Fill::FILL_SOLID)
                     ->getStartColor()->setARGB('A9D08E');
                 $sheet->getDelegate()->getStyle('A8:L8')->getFont()->setBold(true);
-                $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+                $sheet->getDelegate()->getStyle($rowDataCellRange)->applyFromArray($styleArray);
             },
         ];
     }

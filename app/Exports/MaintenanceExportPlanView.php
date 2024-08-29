@@ -5,7 +5,9 @@ namespace App\Exports;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithProperties;
 
@@ -25,8 +27,8 @@ class MaintenanceExportPlanView implements
 
     public function view(): View
     {
-        $transactions = $this->data;
-        return view('export.plan.maintenance', compact('transactions'));
+        $data = $this->data;
+        return view('export.plan.maintenance', compact('data'));
     }
 
     public function properties(): array
@@ -46,19 +48,29 @@ class MaintenanceExportPlanView implements
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
+                $lastColumn = $event->sheet->getHighestColumn();
+                $totalData = count($this->data['transactions']);
+
                 $styleArray = [
                     'alignment' => [
-                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                        'horizontal' => Alignment::HORIZONTAL_LEFT,
+                    ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '#000000'],
+                        ],
                     ],
                 ];
-                $cellRange = 'A1:B3';
+
                 $sheet = $event->sheet;
+                $rowDataCellRange = 'A8:' . $lastColumn . $totalData + 8;
 
                 $sheet->getStyle('A8:I8')->getFill()
-                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    ->setFillType(Fill::FILL_SOLID)
                     ->getStartColor()->setARGB('A9D08E');
                 $sheet->getDelegate()->getStyle('A8:I8')->getFont()->setBold(true);
-                $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+                $sheet->getDelegate()->getStyle($rowDataCellRange)->applyFromArray($styleArray);
             },
         ];
     }

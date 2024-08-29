@@ -41,16 +41,14 @@
             <td colspan="2" style="font-size:12;">
                 <strong>Laporan Summary Renewal</strong>
             </td>
-            <td colspan="2"></td>
         </tr>
         <tr>
             <td colspan="2" style="font-size:12;">
                 <strong>Periode : {{ $data['periode'] }}</strong>
             </td>
-            <td colspan="2"></td>
         </tr>
         <tr>
-            <td colspan="5">&nbsp; </td>
+            <td></td>
         </tr>
         <tr>
             <td colspan="5">
@@ -59,7 +57,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5">&nbsp;</td>
+            <td></td>
         </tr>
         <tr>
             <th>SBU</th>
@@ -90,7 +88,8 @@
                             <li>{{ $val2['qty'] }}</li>
                         @endforeach
                     </ol>
-                    <br>Total : {{ $trn->count() }}
+                    <br>
+                    Total : {{ $trn->count() }}
                 </td>
                 <td>
                     <ol>
@@ -101,14 +100,15 @@
                             <li>{{ rupiah($val3['cost']) }}</li>
                         @endforeach
                     </ol>
-                    <br>Total : {{ rupiah($trn->sum('trn_value')) }}
+                    <br>
+                    Total : {{ rupiah($trn->sum('trn_value')) }}
                 </td>
             </tr>
         @endforeach
         <tr>
-            <td colspan="2" style="text-align: right;">Total</td>
-            <td>QTY: {{ $data['total_qty'] }}</td>
-            <td>Cost: {{ rupiah($data['total_cost']) }}</td>
+            <td colspan="2" style="text-align: right;"><b>Total</b></td>
+            <td><b>QTY: {{ $data['total_qty'] }}</b></td>
+            <td><b>Cost: {{ rupiah($data['total_cost']) }}</b></td>
         </tr>
     </table>
     <table id="tableTTD">

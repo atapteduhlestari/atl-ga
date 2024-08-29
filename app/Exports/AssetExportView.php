@@ -47,19 +47,29 @@ class AssetExportView implements
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
+                $lastColumn = $event->sheet->getHighestColumn();
+                $totalData = count($this->data['assets']);
+
                 $styleArray = [
                     'alignment' => [
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
                     ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '#000000'],
+                        ],
+                    ],
                 ];
-                $cellRange = 'A1:B3';
-                $sheet = $event->sheet;
 
-                $sheet->getStyle('A8:I8')->getFill()
+                $sheet = $event->sheet;
+                $rowDataCellRange = 'A8:' . $lastColumn . $totalData + 8;
+
+                $sheet->getStyle('A8:J8')->getFill()
                     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                     ->getStartColor()->setARGB('A9D08E');
-                $sheet->getDelegate()->getStyle('A8:I8')->getFont()->setBold(true);
-                $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+                $sheet->getDelegate()->getStyle('A8:J8')->getFont()->setBold(true);
+                $sheet->getDelegate()->getStyle($rowDataCellRange)->applyFromArray($styleArray);
             },
         ];
     }

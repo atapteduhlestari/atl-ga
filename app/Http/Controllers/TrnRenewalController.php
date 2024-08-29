@@ -94,41 +94,6 @@ class TrnRenewalController extends Controller
         return view('transaction.renewal.show', compact('trnRenewal'));
     }
 
-    /* public function export()
-    {
-        $data['transactions'] = request()->all();
-
-        if (isSuperadmin())
-            $data['transactions'] =  TrnRenewal::filter($data['transactions'])->orderBy('trn_start_date')->whereNotNull('trn_value')->get();
-        else
-            $data['transactions'] = TrnRenewal::filter($data['transactions'])->where('sbu_id', userSBU())->orderBy('trn_start_date')->whereNotNull('trn_value')->get();
-
-        $time = now()->format('dmY') . '-' . uniqid();
-    
-        $name = "ATL-GAN-REN-{$time}.xlsx";
-
-        // $cost = $data['transactions']->sum(function ($val) {
-        //     return $val->sum('trn_value');
-        // });
-
-        // $cost_plan = $data['transactions']->sum(function ($val) {
-        //     return $val->sum('trn_value_plan');
-        // });
-
-        $data['total_cost'] = 0;
-        $data['total_cost_plan'] = 0;
-
-        foreach ($data['transactions'] as $v) {
-            $data['total_cost'] += $v->trn_value;
-        }
-        foreach ($data['transactions'] as $v) {
-            $data['total_cost_plan'] += $v->trn_value_plan;
-        }
-
-        // return Excel::download(new RenewalExport($data), $name);
-        return Excel::download(new RenewalExportView($data), $name);
-    }*/
-
     public function edit(TrnRenewal $trnRenewal)
     {
         $this->authorize('view', $trnRenewal);
@@ -163,7 +128,7 @@ class TrnRenewalController extends Controller
         }
 
         $trnRenewal->update($data);
-        return redirect()->back()->with('success', 'Successfully deleted!');
+        return redirect("/trn-renewal/" . $trnRenewal->id)->with('success', 'Successfully updated!');
     }
 
     public function destroy(TrnRenewal $trnRenewal)

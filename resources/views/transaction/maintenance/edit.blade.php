@@ -12,9 +12,6 @@
                 <h1 class="h3 mb-2 text-gray-800">Transaction Maintenance / Edit / {{ $trnMaintenance->asset->asset_name }}
                 </h1>
             </div>
-            <a href="/trn-maintenance" class="btn btn-secondary btn-sm mr-2">
-                <i class="fas fa-arrow-left"></i> Back
-            </a>
         </div>
         <div class="mb-5">
             <form action="/trn-maintenance/{{ $trnMaintenance->id }}" method="POST" id="formTrnmaintenance"
@@ -150,7 +147,7 @@
                     </div>
                 </div>
 
-                <a href="/trn-maintenance" class="btn btn-secondary btn-sm mr-2">
+                <a href="/trn-maintenance/{{ $trnMaintenance->id }}" class="btn btn-secondary btn-sm mr-2">
                     <i class="fas fa-arrow-left"></i> Back
                 </a>
                 <button type="button" id="btnSubmit" class="btn btn-sm btn-primary">Submit</button>

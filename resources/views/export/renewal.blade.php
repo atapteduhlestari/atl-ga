@@ -41,28 +41,24 @@
                 <td colspan="2" style="font-size:12;">
                     <strong>Laporan Detail Renewal</strong>
                 </td>
-
             </tr>
             <tr>
                 <td colspan="3" style="font-size:12;">
-                    <strong>Periode : {{ $transactions['periode'] }}</strong>
+                    <strong>Periode : {{ $data['periode'] }}</strong>
                 </td>
             </tr>
             <tr>
-                <td colspan="12">&nbsp; </td>
+                <td></td>
             </tr>
             <tr>
-                <td colspan="12">Filter = SBU : {{ $transactions['sbu'] }}| Status :
-                    {{ $transactions['status'] }}| Total Cost
-                    :{{ rupiah($transactions['total_cost']) }} | Total
-                    Data : {{ $transactions['total_data'] }}</td>
+                <td colspan="12">Filter = SBU : {{ $data['sbu'] }}| Status :
+                    {{ $data['status'] }}| Total Cost
+                    :{{ rupiah($data['total_cost']) }} | Total
+                    Data : {{ $data['total_data'] }}</td>
             </tr>
             <tr>
-                <td colspan="12">&nbsp;</td>
+                <td></td>
             </tr>
-            {{-- <tr>
-                <td colspan="13">&nbsp;</td>
-            </tr> --}}
             <tr>
                 <th>No</th>
                 <th>Code</th>
@@ -79,7 +75,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($transactions['transactions'] as $trn)
+            @foreach ($data['transactions'] as $trn)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $trn->trn_no }}</td>
@@ -110,10 +106,10 @@
                     <b>Total</b>
                 </td>
                 {{-- <td>
-                    <b>{{ rupiah($transactions['total_cost_plan']) }}</b>
+                    <b>{{ rupiah($data['total_cost_plan']) }}</b>
                 </td> --}}
                 <td style="text-align: right">
-                    <b>{{ rupiah($transactions['total_cost']) }}</b>
+                    <b>{{ rupiah($data['total_cost']) }}</b>
                 </td>
             </tr>
         </tbody>

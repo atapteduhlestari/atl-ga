@@ -40,7 +40,6 @@
             <td colspan="2" style="font-size:12;">
                 <strong>Laporan Detail Asset</strong>
             </td>
-
         </tr>
         <tr>
             <td colspan="2" style="font-size:12;">
@@ -48,7 +47,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="8">&nbsp; </td>
+            <td></td>
         </tr>
         <tr>
             <td colspan="8">Filter = SBU : {{ $data['sbu'] }}| Condition :
@@ -57,11 +56,8 @@
                 Data : {{ $data['total_data'] }}</td>
         </tr>
         <tr>
-            <td colspan="8">&nbsp;</td>
+            <td></td>
         </tr>
-        {{-- <tr>
-                <td colspan="13">&nbsp;</td>
-            </tr> --}}
         <tr>
             <th>Code Acc</th>
             <th>Type</th>
@@ -79,7 +75,6 @@
             <tr>
                 <td>{{ $asset->asset_code }}</td>
                 <td>{{ $asset->group->asset_group_name }}</td>
-                <td>{{ $asset->asset_name }}</td>
                 <td>{{ $asset->asset_name }}</td>
                 <td>{{ $asset->sbu->sbu_name ?? '' }}</td>
                 <td>{{ createDate($asset->pcs_date)->format('d/m/Y') }}</td>

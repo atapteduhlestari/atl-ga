@@ -48,23 +48,30 @@ class AssetExportSummaryView implements
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
+
+                $lastColumn = $event->sheet->getHighestColumn();
+                $totalData = count($this->data['assets']);
+                $columnData = 10;
+
                 $styleArray = [
-                    'alignment' => [
-                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '#000000'],
+                        ],
                     ],
                 ];
-                $cellRange = 'A1:B3';
+
+                $rowDataCellRange = 'A8:' . $lastColumn . $totalData + $columnData;
                 $sheet = $event->sheet;
 
                 $sheet->getStyle('A8:E9')->getFill()
                     ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                    ->getStartColor()->setARGB('#A9D08E');
-                $sheet->getStyle('A8:E9')->getBorders()->getAllBorders()
-                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                $sheet->getDelegate()->getStyle('A8:E9')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-                $sheet->getDelegate()->getStyle('A8:E8')->getFont()->setBold(true);
-                $sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
-                $sheet->getDelegate()->getStyle('A8')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+                    ->getStartColor()->setARGB('A9D08E');
+                $sheet->getStyle('A8:E9')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
+                $sheet->getStyle('A8:E9')->getFont()->setBold(true);
+
+                $sheet->getStyle($rowDataCellRange)->applyFromArray($styleArray);
             },
         ];
     }
