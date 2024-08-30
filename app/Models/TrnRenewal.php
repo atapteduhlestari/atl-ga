@@ -53,8 +53,27 @@ class TrnRenewal extends Model
             });
         });
 
+        $query->when($filters['asset_id'] ?? false, function ($query, $asset) {
+            return $query->whereHas('document', function ($q) use ($asset) {
+                if ($asset == 'empty')
+                    $q->whereNull('asset_id');
+                else
+                    $q->where('asset_id', $asset);
+            });
+        });
+
+        $query->when($filters['renewal_id'] ?? false, function ($query, $id) {
+            return $query->whereHas('renewal', function ($q) use ($id) {
+                $q->where('renewal_id', $id);
+            });
+        });
+
         $query->when($filters['status']  ?? false, function ($query, $status) {
             return $query->where('trn_status', $status);
+        });
+
+        $query->when($filters['trn_type']  ?? false, function ($query, $type) {
+            return $query->where('trn_type', $type);
         });
     }
 
@@ -74,6 +93,15 @@ class TrnRenewal extends Model
             });
         });
 
+        $query->when($filters['asset_search_id'] ?? false, function ($query, $asset) {
+            return $query->whereHas('document', function ($q) use ($asset) {
+                if ($asset == 'empty')
+                    $q->whereNull('asset_id');
+                else
+                    $q->where('asset_id', $asset);
+            });
+        });
+
         $query->when($filters['renewal_search_id'] ?? false, function ($query, $renewal) {
             return $query->whereHas('renewal', function ($q) use ($renewal) {
                 $q->where('renewal_id', $renewal);
@@ -82,6 +110,10 @@ class TrnRenewal extends Model
 
         $query->when($filters['status']  ?? false, function ($query, $status) {
             return $query->where('trn_status', $status);
+        });
+
+        $query->when($filters['trn_type']  ?? false, function ($query, $type) {
+            return $query->where('trn_type', $type);
         });
     }
 }

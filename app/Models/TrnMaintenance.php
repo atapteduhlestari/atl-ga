@@ -54,8 +54,24 @@ class TrnMaintenance extends Model
             });
         });
 
+        $query->when($filters['asset_id'] ?? false, function ($query, $asset) {
+            return $query->whereHas('asset', function ($q) use ($asset) {
+                $q->where('asset_id', $asset);
+            });
+        });
+
+        $query->when($filters['maintenance_id'] ?? false, function ($query, $id) {
+            return $query->whereHas('maintenance', function ($q) use ($id) {
+                $q->where('maintenance_id', $id);
+            });
+        });
+
         $query->when($filters['status']  ?? false, function ($query, $status) {
             return $query->where('trn_status', $status);
+        });
+
+        $query->when($filters['trn_type']  ?? false, function ($query, $type) {
+            return $query->where('trn_type', $type);
         });
     }
 
@@ -67,6 +83,12 @@ class TrnMaintenance extends Model
 
         $query->when($filters['due_date']  ?? false, function ($query, $to) {
             return $query->whereDate('trn_date', '<=', $to);
+        });
+
+        $query->when($filters['asset_search_id'] ?? false, function ($query, $asset) {
+            return $query->whereHas('asset', function ($q) use ($asset) {
+                $q->where('asset_id', $asset);
+            });
         });
 
         $query->when($filters['sbu_search_id'] ?? false, function ($query, $sbu) {
@@ -83,6 +105,10 @@ class TrnMaintenance extends Model
 
         $query->when($filters['status']  ?? false, function ($query, $status) {
             return $query->where('trn_status', $status);
+        });
+
+        $query->when($filters['trn_type']  ?? false, function ($query, $type) {
+            return $query->where('trn_type', $type);
         });
     }
 }

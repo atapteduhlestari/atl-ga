@@ -32,14 +32,14 @@
             @can('superadmin')
                 <li
                     class="nav-item {{ request()->is('asset-parent*') || request()->is('asset-child*') || request()->is('group*') || request()->is('asset-group*') || request()->is('document-group*') || request()->is('renewal*') || request()->is('maintenance*') || request()->is('cycle*') || request()->is('sbu*') ? 'active' : '' }}">
-                    <a class="nav-link {{ request()->is('asset-parent*') || request()->is('asset-child*') || request()->is('group*') || request()->is('asset-group*') || request()->is('document-group*') || request()->is('renewal*') || request()->is('maintenance*') || request()->is('cycle*') || request()->is('sbu*') ? '' : 'collapsed' }}"
+                    <a class="nav-link {{ request()->is('asset-parent*') || request()->is('asset-child*') || request()->is('group*') || request()->is('asset-group*') || request()->is('document-group*') || request()->is('renewal*') || request()->is('maintenance*') || request()->is('cycle*') || request()->is('sbu*') || request()->is('sdb*') ? '' : 'collapsed' }}"
                         href="#" data-toggle="collapse" data-target="#collapseData" aria-expanded="true"
                         aria-controls="collapseData">
                         <i class="fas fa-database"></i>
                         <span>Data</span>
                     </a>
                     <div id="collapseData"
-                        class="collapse {{ request()->is('asset-parent*') || request()->is('asset-child*') || request()->is('group*') || request()->is('asset-group*') || request()->is('document-group*') || request()->is('renewal*') || request()->is('maintenance*') || request()->is('cycle*') || request()->is('sbu*') ? (detect() ?: 'show') : '' }}"
+                        class="collapse {{ request()->is('asset-parent*') || request()->is('asset-child*') || request()->is('group*') || request()->is('asset-group*') || request()->is('document-group*') || request()->is('renewal*') || request()->is('maintenance*') || request()->is('cycle*') || request()->is('sbu*') || request()->is('sdb*') ? (detect() ?: 'show') : '' }}"
                         aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item  {{ request()->is('asset-parent*') ? 'active' : '' }}"

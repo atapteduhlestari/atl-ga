@@ -121,7 +121,7 @@ class AssetChildController extends Controller
 
         Storage::delete($assetChild->file);
         $assetChild->delete();
-
+        
         return redirect('/asset-child')->with('success', 'Successfully deleted!');
     }
 }

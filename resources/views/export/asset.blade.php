@@ -81,7 +81,7 @@
                 <td style="text-align: right;">{{ rupiah($asset->pcs_value) }}</td>
                 <td style="text-align: right;">{{ rupiah($asset->nilai_buku) }}</td>
                 <td>{{ $asset->location ?? '' }}</td>
-                <td>{{ $asset->condition == 1 ? 'Baik' : 'Rusak' }}</td>
+                <td> {{ textCondition($asset->condition) }}</td>
                 <td>{{ $asset->employee->name ?? '' }}</td>
                 {{-- <td>
                 {{ $asset->appraisals()->exists() ? createDate($asset->appraisals->last()->apr_date)->format('d/m/Y') : null }}

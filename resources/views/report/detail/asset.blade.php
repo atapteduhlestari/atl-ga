@@ -13,14 +13,14 @@
             <form action="/asset-detail-export" method="get">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="start">Start</label>
+                        <label for="start">Purchase Date Start</label>
                         <div class="form-group d-flex">
                             <input type="date" class="form-control form-control-sm @error('start') is-invalid @enderror"
                                 id="start" name="start" value="{{ old('start') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="end">End</label>
+                        <label for="end">Purchase Date End</label>
                         <div class="form-group d-flex">
                             <input type="date" class="form-control form-control-sm @error('end') is-invalid @enderror"
                                 id="end" name="end" value="{{ old('end') }}">
@@ -42,14 +42,20 @@
                     @endcan
                     <div class="col-md-6 mb-3">
                         <label for="condition">Condition</label>
-                        <select class="form-control form-control-sm @error('condition') is-invalid @enderror"
-                            name="condition" id="condition">
+                        <select class="form-control @error('condition') is-invalid @enderror" name="condition"
+                            id="condition">
                             <option value=""></option>
-                            <option class="text-success" value="1">
-                                Baik
+                            <option class="text-success" value="1" {{ old('condition') == 1 ? 'selected' : '' }}>
+                                Excellent
                             </option>
-                            <option class="text-danger" value="3">
-                                Rusak
+                            <option class="text-warning" value="2" {{ old('condition') == 2 ? 'selected' : '' }}>
+                                Fair
+                            </option>
+                            <option class="text-danger" value="3" {{ old('condition') == 3 ? 'selected' : '' }}>
+                                Poor
+                            </option>
+                            <option class="text-dark" value="4" {{ old('condition') == 4 ? 'selected' : '' }}>
+                                Disposed
                             </option>
                         </select>
                     </div>

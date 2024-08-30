@@ -10,14 +10,14 @@
             <form action="/asset-summary-export" method="get">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="start">Start</label>
+                        <label for="start">Purchase Date Start</label>
                         <div class="form-group d-flex">
                             <input type="date" class="form-control form-control-sm @error('start') is-invalid @enderror"
                                 id="start" name="start" value="{{ request('start') }}">
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="end">End</label>
+                        <label for="end">Purchase Date End</label>
                         <div class="form-group d-flex">
                             <input type="date" class="form-control form-control-sm @error('end') is-invalid @enderror"
                                 id="end" name="end" value="{{ request('end') }}">

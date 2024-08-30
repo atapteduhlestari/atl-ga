@@ -212,13 +212,19 @@ class TrnMaintenanceController extends Controller
     public function detailView()
     {
         $SBUs = SBU::orderBy('sbu_name', 'asc')->get();
-        return view('report.detail.maintenance', compact('SBUs'));
+        $maintenances = Maintenance::get();
+        $assets = Asset::get();
+
+        return view('report.detail.maintenance', compact('SBUs', 'maintenances', 'assets'));
     }
 
     public function summaryView()
     {
         $SBUs = SBU::orderBy('sbu_name', 'asc')->get();
-        return view('report.summary.maintenance', compact('SBUs'));
+        $maintenances = Maintenance::get();
+        $assets = Asset::get();
+
+        return view('report.summary.maintenance', compact('SBUs', 'maintenances', 'assets'));
     }
 
     public function reportDetail()

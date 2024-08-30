@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SBU;
+use App\Models\Asset;
 use App\Models\Renewal;
 use App\Models\Employee;
 use App\Models\AssetChild;
@@ -31,13 +32,15 @@ class TrnRenewalController extends Controller
         $assetChild = AssetChild::orderBy('doc_name', 'asc')->get();
         $employees = Employee::orderBy('name', 'asc')->get();
         $SBUs = SBU::orderBy('sbu_name', 'asc')->get();
+        $assets = Asset::whereHas('children')->get();
 
         return view('transaction.renewal.index', compact(
             'trnRenewals',
             'renewals',
             'assetChild',
             'employees',
-            'SBUs'
+            'SBUs',
+            'assets'
         ));
     }
 
@@ -211,13 +214,19 @@ class TrnRenewalController extends Controller
     public function detailView()
     {
         $SBUs = SBU::orderBy('sbu_name', 'asc')->get();
-        return view('report.detail.renewal', compact('SBUs'));
+        $renewals = Renewal::get();
+        $assets = Asset::get();
+
+        return view('report.detail.renewal', compact('SBUs', 'renewals', 'assets'));
     }
 
     public function summaryView()
     {
         $SBUs = SBU::orderBy('sbu_name', 'asc')->get();
-        return view('report.summary.renewal', compact('SBUs'));
+        $renewals = Renewal::get();
+        $assets = Asset::get();
+
+        return view('report.summary.renewal', compact('SBUs', 'renewals', 'assets'));
     }
 
     public function reportDetail()

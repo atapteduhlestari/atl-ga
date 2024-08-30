@@ -31,18 +31,31 @@
                 <form action="/trn-renewal" method="get">
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="start_date">Start Date</label>
+                            <label for="start_date">Transaction Start Date</label>
                             <div class="form-group d-flex">
                                 <input type="date" class="form-control form-control-sm" id="start_date" name="start_date"
                                     value="{{ old('start_date') }}">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="due_date">Due Date</label>
+                            <label for="due_date">Transaction Due Date</label>
                             <div class="form-group d-flex">
                                 <input type="date" class="form-control form-control-sm" id="due_date" name="due_date"
                                     value="{{ old('due_date') }}">
                             </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="asset_search_id">Asset</label>
+                            <select class="form-control form-control-sm @error('asset_search_id') is-invalid @enderror"
+                                id="asset_search_id" name="asset_search_id" readonly>
+                                <option value="">Select Asset</option>
+                                <option value="empty">No Asset</option>
+                                @foreach ($assets as $asset)
+                                    <option value="{{ $asset->id }}"
+                                        {{ old('asset_search_id') == $asset->id ? 'selected' : '' }}>
+                                        {{ $asset->asset_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -82,6 +95,19 @@
                                 </option>
                                 <option class="text-success" value="1">
                                     Closed
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="trn_type">Cycle</label>
+                            <select class="form-control form-control-sm @error('trn_type') is-invalid @enderror"
+                                name="trn_type" id="trn_type">
+                                <option value=""></option>
+                                <option class="text-info" value="1">
+                                    Routine
+                                </option>
+                                <option class="text-warning" value="false">
+                                    Accidentally
                                 </option>
                             </select>
                         </div>
@@ -398,6 +424,11 @@
         });
 
         $("#sbu_search_id").selectize({
+            create: false,
+            sortField: "text",
+        });
+
+        $("#asset_search_id").selectize({
             create: false,
             sortField: "text",
         });

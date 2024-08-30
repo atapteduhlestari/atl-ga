@@ -120,5 +120,11 @@ class AssetChild extends Model
                 $q->where('document_id', $group);
             });
         });
+
+        $query->when($filters['sdb_search_id'] ?? false, function ($query, $sdb) {
+            return $query->whereHas('sdb', function ($q) use ($sdb) {
+                $q->where('sdb_idS', $sdb);
+            });
+        });
     }
 }

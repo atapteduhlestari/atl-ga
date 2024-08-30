@@ -59,7 +59,7 @@
                                 </select>
                             </div>
                         @endcan
-
+                        {{-- 
                         <div class="col-md-6">
                             <label for="search_date_before">Date</label>
                             <div class="form-group d-flex">
@@ -70,6 +70,19 @@
                                 <input type="date" class="form-control form-control-sm" id="search_date_after"
                                     name="search_date_after" value="{{ request('search_date_after') }}">
                             </div>
+                        </div> --}}
+
+                        <div class="col-md-6 mb-3">
+                            <label for="sdb_search_id">SDB</label>
+                            <select class="form-control form-control-sm @error('sdb_search_id') is-invalid @enderror"
+                                id="sdb_search_id" name="sdb_search_id">
+                                <option value=""></option>
+                                @foreach ($SDBs as $sd)
+                                    <option value="{{ $sd->id }}"
+                                        {{ request('sdb_search_id') == $sd->id ? 'selected' : '' }}>
+                                        {{ $sd->sdb_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="row">
