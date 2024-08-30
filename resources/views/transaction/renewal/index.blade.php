@@ -109,6 +109,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Doc Name</th>
+                                <th>Asset</th>
                                 <th>SBU</th>
                                 <th>Type</th>
                                 <th>Description</th>
@@ -125,7 +126,16 @@
                                 <tr>
                                     <td>{{ $loop->index + $trnRenewals->firstItem() }}</td>
                                     <td>
-                                        {{ $trn->document->doc_name }} - {{ $trn->document->parent->asset_name ?? '' }}
+                                        <a href="/asset-child/{{ $trn->document->id }}">
+                                            {{ $trn->document->doc_name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if ($trn->document->parent)
+                                            <a href="/asset-parent/docs/{{ $trn->document->asset_id }}">
+                                                {{ $trn->document->parent->asset_name }}
+                                            </a>
+                                        @endif
                                     </td>
                                     <td>{{ $trn->sbu->sbu_name }}</td>
                                     <td>{{ $trn->renewal->name }}</td>

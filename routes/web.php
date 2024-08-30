@@ -33,6 +33,8 @@ Route::middleware(['auth', 'reminder'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/report', [DashboardController::class, 'report']);
     Route::get('/group', [DashboardController::class, 'group']);
+    Route::get('/change-password', [DashboardController::class, 'changePassword']);
+    Route::post('/update-password', [DashboardController::class, 'updatePassword']);
 
     Route::get('/report-loan-detail', [LoanController::class, 'detailView']);
     Route::get('/loan-detail-export', [LoanController::class, 'reportDetail']);
@@ -146,6 +148,8 @@ Route::group(['middleware' => ['auth', 'superadmin', 'reminder']], function () {
     Route::resource('/maintenance', MaintenanceController::class)->except(['create']);
     Route::resource('/renewal', RenewalController::class)->except(['create']);
     Route::resource('/sdb', SDBController::class)->except(['create']);
+    Route::post('/sdb/remove-document/{id}', [SDBController::class, 'removeDocs']);
+
     Route::resource('/sbu', SBUController::class)->except(['create']);
     Route::resource('/employee', EmployeeController::class)->except(['create']);
     Route::resource('/cycle', CycleController::class)->except(['create']);

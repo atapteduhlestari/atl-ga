@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Asset;
 use App\Models\AssetChild;
 use App\Models\TrnRenewal;
 use Illuminate\Http\Request;
 use App\Models\TrnMaintenance;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
-use App\Models\Calendar as ModelsCalendar;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
+use App\Models\Calendar as ModelsCalendar;
 
 class DashboardController extends Controller
 {
@@ -138,6 +140,25 @@ class DashboardController extends Controller
         }
         return redirect()->back()->with('success', 'Success!');
     }
+
+    public function changePassword()
+    {
+        return view('auth.user.change-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8',
+        ]);
+
+        $user =  User::find(auth()->user()->id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->back()->with("success", "Password changed successfully!");
+    }
+
 
     public function displayImage($fileName)
     {

@@ -99,6 +99,7 @@
                                 <th>Doc Name</th>
                                 <th>Asset</th>
                                 <th>SBU</th>
+                                <th>SDB</th>
                                 <th>File</th>
                                 <th class="text-center" width=25%>Actions</th>
                             </tr>
@@ -110,8 +111,15 @@
                                     <td>{{ $child->document->document_group_name ?? '-' }}</td>
                                     <td>{{ $child->doc_code }}</td>
                                     <td>{{ $child->doc_name }}</td>
-                                    <td>{{ $child->parent->asset_name ?? '-' }}</td>
+                                    <td>
+                                        @if ($child->parent)
+                                            <a href="/asset-parent/docs/{{ $child->asset_id }}">
+                                                {{ $child->parent->asset_name }}
+                                            </a>
+                                        @endif
+                                    </td>
                                     <td>{{ $child->sbu->sbu_name ?? '' }}</td>
+                                    <td>{{ $child->sdb->sdb_name ?? '' }}</td>
                                     <td>
                                         @if ($child->file)
                                             <a title="download file" href="/asset-child/download/{{ $child->id }}">
@@ -123,10 +131,15 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-around">
+                                            <div>
+                                                <a title="Asset Detail" href="/asset-child/{{ $child->id }}"
+                                                    class="btn btn-outline-dark btn-sm"><i
+                                                        class="fas fa-search-plus"></i></a>
+                                            </div>
                                             <form action="/trn-renewal/create">
                                                 <input type="hidden" name="id" value="{{ $child->id }}" readonly>
                                                 <button type="submit" class="btn btn-outline-dark btn-sm">
-                                                    <i class="fas fa-file-signature"></i> Renewal
+                                                    Add Renewal
                                                 </button>
                                             </form>
                                             <div>

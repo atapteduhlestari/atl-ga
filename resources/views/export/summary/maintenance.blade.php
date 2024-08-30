@@ -12,11 +12,7 @@
         td,
         th {
             text-align: left;
-            border: 1px solid;
-            vertical-align: top;
-        }
-
-        table {
+            border: 1px solid black;
             border-collapse: collapse;
         }
 
@@ -65,49 +61,43 @@
             <th>QTY</th>
             <th>Cost</th>
         </tr>
-        @foreach ($data['transactions'] as $key => $trn)
+        @foreach ($data['transactions'] as $sbu => $trn)
             @php
                 $total_cost = $trn->sum('trn_value');
                 $type = $trn->groupBy('maintenance.name');
             @endphp
+            @foreach ($type as $t => $val1)
+                @php
+                    $val1->put('qty', $val1->count());
+                    $val1->put('cost', $val1->sum('trn_value'));
+                @endphp
+                <tr>
+                    <td>
+                        {{ $sbu }}
+                    </td>
+                    <td>
+                        {{ $t }}
+                    </td>
+                    <td>
+                        {{ $val1['qty'] }}
+                    </td>
+                    <td style="text-align:right">
+                        {{ rupiah($val1['cost']) }}
+                    </td>
+                </tr>
+            @endforeach
             <tr>
-                <td>{{ $key }}</td>
-                <td>
-                    <ol>
-                        @foreach ($type as $t => $val1)
-                            <li>{{ $t }}</li>
-                        @endforeach
-                    </ol>
-                </td>
-                <td>
-                    <ol>
-                        @foreach ($type as $k2 => $val2)
-                            @php
-                                $val2->put('qty', $val2->count());
-                            @endphp
-                            <li>{{ $val2['qty'] }}</li>
-                        @endforeach
-                    </ol>
-                    <br>
-                    Total : {{ $trn->count() }}
-                </td>
-                <td style="text-align: right;">
-                    <ol>
-                        @foreach ($type as $k3 => $val3)
-                            @php
-                                $val3->put('cost', $val3->sum('trn_value'));
-                            @endphp
-                            <li>{{ rupiah($val3['cost']) }}</li>
-                        @endforeach
-                    </ol>
-                    <br>
-                    Total : {{ rupiah($trn->sum('trn_value')) }}
+                <td></td>
+                <td></td>
+                <td style="text-align:right"><b>Total: {{ $trn->count() }}</b></td>
+                <td style="text-align:right">
+                    <b>Total:{{ rupiah($trn->sum('trn_value')) }}</b>
                 </td>
             </tr>
         @endforeach
         <tr>
             <td colspan="2" style="text-align: right;"><b>Total</b></td>
-            <td><b>QTY: {{ $data['total_qty'] }}</b></td>
+            <td style="text-align: right;"><b>QTY: {{ $data['total_qty'] }}</b></td>
             <td style="text-align: right;">
                 <b>Cost: {{ rupiah($data['total_cost']) }}</b>
             </td>

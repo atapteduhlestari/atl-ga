@@ -60,6 +60,9 @@
                                 href="/group">
                                 Type
                             </a>
+                            <a class="collapse-item {{ request()->is('sdb*') ? 'active' : '' }}" href="/sdb">
+                                SDB
+                            </a>
                         </div>
                     </div>
                 </li>

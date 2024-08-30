@@ -28,7 +28,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        Auth::logoutOtherDevices(request('password'));
+        // Auth::logoutOtherDevices(request('password'));
         $user->update([
             'last_login_at' => now()->toDateTimeString(),
             'last_login_ip' => $request->getClientIp()

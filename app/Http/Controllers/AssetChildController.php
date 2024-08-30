@@ -16,7 +16,7 @@ class AssetChildController extends Controller
     {
         $data = request()->all();
         $children = AssetChild::with([
-            'parent' => fn ($q) => $q->orderBy('asset_name')
+            'parent' => fn($q) => $q->orderBy('asset_name')
         ]);
 
         $documentGroup = DocumentGroup::orderBy('document_group_name', 'asc')->get();
@@ -89,6 +89,14 @@ class AssetChildController extends Controller
 
         $assetChild->update($data);
         return redirect()->back()->with('success', 'Successfully deleted!');
+    }
+
+    public function show(AssetChild $assetChild)
+    {
+        $children = $assetChild->load('trnRenewal');
+        return view('asset.child.show', compact(
+            'children',
+        ));
     }
 
     public function download(AssetChild $assetChild)

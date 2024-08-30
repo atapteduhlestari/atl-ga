@@ -167,25 +167,22 @@
                             <span>Documents</span> <i id="togglerDocument" class="fas fa-angle-right"></i>
                         </button>
                     </div>
-                    @if (count($asset->trnMaintenance) > 0)
-                        <div class="col-md-4 mt-5">
-                            <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
-                                data-target="#collapseMaintenance" aria-expanded="false" aria-controls="collapseMaintenance"
-                                id="collapseButton">
-                                <span>History Maintenance</span> <i id="togglerMaintenance" class="fas fa-angle-right"></i>
-                            </button>
-                        </div>
-                    @endif
-                    @if (count($asset->children) > 0)
-                        <div class="col-md-4 mt-5">
-                            <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
-                                data-target="#collapseRenewal" aria-expanded="false" aria-controls="collapseRenewal"
-                                id="collapseButton">
-                                <span>History Renewal</span> <i id="togglerRenewal" class="fas fa-angle-right"></i>
-                            </button>
-                        </div>
-                    @endif
 
+                    <div class="col-md-4 mt-5">
+                        <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
+                            data-target="#collapseMaintenance" aria-expanded="false" aria-controls="collapseMaintenance"
+                            id="collapseButton">
+                            <span>History Maintenance</span> <i id="togglerMaintenance" class="fas fa-angle-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-md-4 mt-5">
+                        <button class="btn btn-dark btn-sm btn-block border-0" type="button" data-toggle="collapse"
+                            data-target="#collapseRenewal" aria-expanded="false" aria-controls="collapseRenewal"
+                            id="collapseButton">
+                            <span>History Renewal</span> <i id="togglerRenewal" class="fas fa-angle-right"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="collapse pb-3" id="collapseDocument">
@@ -208,9 +205,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Name</th>
+                                        <th>Doc Name</th>
                                         <th>Code Acc</th>
-                                        {{-- <th>Doc Name</th> --}}
+                                        <th>SBU</th>
                                         <th>SBU</th>
                                         <th>File</th>
                                         <th class="text-center">Actions</th>
@@ -220,10 +217,11 @@
                                     @foreach ($asset->children as $child)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $child->document->document_group_name ?? '-' }}</td>
+                                            <td>{{ $child->doc_name }}</td>
+                                            {{-- <td>{{ $child->document->document_group_name ?? '-' }}</td> --}}
                                             <td>{{ $child->doc_code }}</td>
-                                            {{-- <td>{{ $child->doc_name }}</td> --}}
-                                            <td>{{ $child->sbu->sbu_name }}</td>
+                                            <td>{{ $child->sbu->sbu_name ?? '' }}</td>
+                                            <td>{{ $child->sdb->sdb_name ?? '' }}</td>
                                             <td>
                                                 @if ($child->file)
                                                     <a title="download file"

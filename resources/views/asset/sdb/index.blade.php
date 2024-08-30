@@ -31,7 +31,7 @@
                                 <th>SDB</th>
                                 <th>Purchase Date</th>
                                 <th>Purchase Value</th>
-                                <th>Due Date</th>
+                                {{-- <th>Due Date</th> --}}
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
@@ -42,15 +42,10 @@
                                     <td>{{ $sdb->sdb_name }}</td>
                                     <td>{{ $sdb->pcs_date ? createDate($sdb->pcs_date)->format('d M Y') : '' }}</td>
                                     <td>{{ rupiah($sdb->pcs_value) }}</td>
-                                    <td>{{ $sdb->due_date ? createDate($sdb->due_date)->format('d M Y') : '' }}</td>
+                                    {{-- <td>{{ $sdb->due_date ? createDate($sdb->due_date)->format('d M Y') : '' }}</td> --}}
                                     <td>
                                         <div class="d-flex justify-content-around">
-                                            <form action="/trn-sdb/create">
-                                                <input type="hidden" name="id" value="{{ $sdb->id }}" readonly>
-                                                <button type="submit" class="btn btn-outline-dark btn-sm">
-                                                    <i class="fas fa-file-signature"></i> Renewal
-                                                </button>
-                                            </form>
+
                                             <div>
                                                 <a title="SDB Detail" href="/sdb/{{ $sdb->id }}"
                                                     class="btn btn-outline-dark btn-sm">Detail</a>
@@ -116,11 +111,11 @@
                                 <input type="text" class="form-control currency @error('pcs_value') is-invalid @enderror"
                                     name="pcs_value" id="pcs_value" value="{{ old('pcs_value') }}">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            {{-- <div class="col-md-6 mb-3">
                                 <label for="due_date">Due Date</label>
                                 <input type="date" class="form-control @error('due_date') is-invalid @enderror"
                                     name="due_date" id="due_date" value="{{ old('due_date') }}">
-                            </div>
+                            </div> --}}
                         </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" id="btnSubmit" class="btn btn-primary">Submit</button>

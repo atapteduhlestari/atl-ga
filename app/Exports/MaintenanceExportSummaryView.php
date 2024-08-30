@@ -50,8 +50,9 @@ class MaintenanceExportSummaryView implements
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $lastColumn = $event->sheet->getHighestColumn();
-                $column = 9;
-                $totalData = count($this->data['transactions']) + $column;
+                $column = 8;
+                $lastRow = $event->sheet->getHighestRow() - $column;
+                // $totalData = count($this->data['transactions']) + $this->data['countMaintenance'] + $column;
 
                 $styleArray = [
                     'alignment' => [
@@ -64,7 +65,7 @@ class MaintenanceExportSummaryView implements
                         ],
                     ],
                 ];
-                $rowDataCellRange = 'A8:' . $lastColumn . $totalData;
+                $rowDataCellRange = 'A8:' . $lastColumn . $lastRow;
                 $sheet = $event->sheet;
 
                 $sheet->getStyle('A8:D8')->getFill()

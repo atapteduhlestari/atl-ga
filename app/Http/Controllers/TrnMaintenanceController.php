@@ -273,6 +273,7 @@ class TrnMaintenanceController extends Controller
         $data['transactions'] = TrnMaintenance::filter($data['request'])->whereNotNull('trn_value')->with(['sbu' => function ($q) {
             $q->select('id', 'sbu_name');
         }])->get()->groupBy('sbu.sbu_name');
+        $data['countByMaintenance'] = TrnMaintenance::filter($data['request'])->whereNotNull('trn_value')->get()->groupBy('maintenance.name')->count();
 
         if (count($data['transactions']) <= 0)
             return redirect()->back()->with('warning', 'No data available');
@@ -284,7 +285,6 @@ class TrnMaintenanceController extends Controller
         $data['periode'] = getPeriodeExport(request());
         $data['total_cost'] = $trn->sum('trn_value');
         $data['total_qty'] = $trn->count();
-
         // return view('export.summary.maintenance', compact('data'));
         return Excel::download(new MaintenanceExportSummaryView($data), $name);
     }

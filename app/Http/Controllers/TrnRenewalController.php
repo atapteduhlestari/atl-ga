@@ -271,6 +271,8 @@ class TrnRenewalController extends Controller
             $q->select('id', 'sbu_name');
         }])->get()->groupBy('sbu.sbu_name');
 
+        $data['countByRenewal'] = TrnRenewal::filter($data['request'])->whereNotNull('trn_value')->get()->groupBy('renewal.name')->count();
+
         if (count($data['transactions']) <= 0)
             return redirect()->back()->with('warning', 'No data available');
 
