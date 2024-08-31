@@ -149,7 +149,7 @@ class DashboardController extends Controller
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'password' => 'required|min:8',
+            'password' => 'required|confirmed|min:8',
         ]);
 
         $user =  User::find(auth()->user()->id);
